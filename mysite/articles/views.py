@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 # DVDH -> django가 주는 views에서 쓸 decorations http를 위한 
 from django.views.decorators.http import require_POST
+
+from django.contrib.auth.decorators import login_required
+
 from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 
+
 # Create your views here.
+
 def index(request):
     articles = Article.objects.all()
     context = {

@@ -8,7 +8,24 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="container">
+  {% if user.is_authenticated %}
+    <h3>{{ user.username }}님 환영합니다.</h3>
+    <a href = "{% url 'accounts:logout' %}" class="btn btn-secondary btn-sm">로그아웃</a>
+    <a href= "{% url 'accounts:update' %}" class="btn btn-secondary btn-sm">정보수정</a>
+    <a href= "{% url 'accounts:change_password' %}" class="btn btn-secondary btn-sm">비밀번호 수정</a>
+
+
+    <form action = "{% url 'accounts:delete' %}" method="POST">
+      {% csrf_token %}
+      <button class="btn btn-sm">회원탈퇴</button>
+    </form>  
+  {% else %}
+    <h3>로그인 or 회원가입 </h3>
+    <a href = "{% url 'accounts:login' %}" >&nbsp;로그인&nbsp;</a>
+    <a href = "{% url 'accounts:signup' %}" >&nbsp;회원가입&nbsp;</a>
+  {% endif %}
+  <hr>
+  <div class="container"> 
     {% block body %}
     {% endblock %}
   </div>
